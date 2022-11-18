@@ -20,7 +20,7 @@
             <div v-for="lesson in lessons">
                 <img width=125px; style="text-align: left;" v-bind:src="lesson.image">
                 <h1>{{ lesson.title }}</h1>
-                <p><b>{{ lesson.location }} <br><br>
+                <p><b>Location: {{ lesson.location }} <br><br>
                         Price (£): {{ lesson.price }}</b></p>
                 <p><b>Number of spaces: {{ lesson.space }}</b></p>
                 <button v-on:click="addToCart(lesson, shoppingCart)" v-show="lesson.space > 0">Add to cart</button>
