@@ -9,5 +9,58 @@
     <script src="lessons.js"></script>
     < ! ╌ cdn ╌>
 </head>
+    
+    <body>
+    <div id="app">
+        <div v-if="showLessons">
+            Sort by
+            <button v-on:click="lessons.sort((a, b) => a.title> b.title) ? 1 : -1">Title</button>
+            <button v-on:click="lessons.sort((a, b) => a.location> b.location) ? 1 : -1">Location</button>
+            <button v-on:click="lessons.sort((a, b) => a.price> b.price) ? 1 : -1">Price</button>
+            <button v-on:click="lessons.sort((a, b) => a.space> b.space) ? 1 : -1">Space</button>
+            <div v-for="lesson in lessons">
+                <img width=125px; style="text-align: left;" v-bind:src="lesson.image">
+                <h1>{{ lesson.title }}</h1>
+                <p><b>{{ lesson.location }} <br><br>
+                        Price (£): {{ lesson.price }}</b></p>
+                <p><b>Number of spaces: {{ lesson.space }}</b></p>
+                <button v-on:click="addToCart(lesson, shoppingCart)" v-show="lesson.space > 0">Add to cart</button>
+            </div>
+            <button @click="showCheckout" v-show="canCheckOut"> {{cartItemCount}} Checkout</button>
+        </div>
+        <div v-else>
+            <h2>Checkout</h2>
+            <p>
+                <strong>First Name:</strong>
+                <input v-model.trim="booking.firstName" type="text" />
+            </p>
+            <p>
+                <strong>Last Name:</strong>
+                <input v-model.trim="booking.lastName" type="text" />
+            </p>
+            <p>
+                <strong>Phone Number:</strong>
+                <input v-model="booking.phoneNumber" type="tel" />
+            </p>
+            <h2>Booking Information</h2>
+            <p>First Name: {{booking.firstName}} </p>
+            <p>Last Name: {{booking.lastName}} </p>
+            <p>Phone: {{booking.phoneNumber}} </p>
+            <p>Lessons: </p>
+            <div v-for="item, index in shoppingCart">
+                <p>{{item.title}} {{item.location}} {{item.price}}
+                    <button @click="remove(index)">Remove</button>
+                </p>
+
+            </div>
+
+
+            <button @click="submitForm" v-show="canBook && canCheckOut">Book</button>
+            <p><button @click="showCheckout">Back</button></p>
+        </div>
+
+    </div>
+
+</body>
 
 </html>
